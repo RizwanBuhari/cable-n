@@ -1,0 +1,26 @@
+# docker compose up -d --build   ->  http://localhost:8000
+# Build-time (public) website settings come from frontend/.env.production or
+# the args below; runtime secrets come from backend/.env.
+services:
+  cablen:
+    build:
+      context: .
+      args:
+        VITE_SITE_URL: ${VITE_SITE_URL:-http://localhost:8000}
+        VITE_ADS_ENABLED: ${VITE_ADS_ENABLED:-false}
+        VITE_ADSENSE_CLIENT: ${VITE_ADSENSE_CLIENT:-}
+        VITE_ADSENSE_SLOT_RAIL: ${VITE_ADSENSE_SLOT_RAIL:-}
+        VITE_ADSENSE_SLOT_INLINE: ${VITE_ADSENSE_SLOT_INLINE:-}
+        VITE_ADSENSE_CMP: ${VITE_ADSENSE_CMP:-own}
+        VITE_CONTACT_EMAIL: ${VITE_CONTACT_EMAIL:-}
+    env_file:
+      - path: backend/.env
+        required: false
+    environment:
+      APP_ENV: production
+    ports:
+      - "8000:8000"
+    read_only: true
+    tmpfs:
+      - /tmp
+    restart: unless-stopped

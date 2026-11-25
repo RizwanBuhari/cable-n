@@ -1,0 +1,17 @@
+# Render Blueprint - free web service built from the Dockerfile.
+# Render dashboard -> New -> Blueprint -> select this repository.
+services:
+  - type: web
+    name: cable-n
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/v1/health
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: TRUST_PROXY_HEADERS
+        value: "true"
+      - key: AI_ENABLED
+        value: "false"

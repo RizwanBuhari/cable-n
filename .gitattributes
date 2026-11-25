@@ -1,0 +1,5 @@
+* text=auto eol=lf
+*.ps1 text eol=crlf
+*.png binary
+reference/original_engine/*.py -text
+backend/app/engine/legacy_engine.py -text

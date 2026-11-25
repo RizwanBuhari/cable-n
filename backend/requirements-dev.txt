@@ -1,0 +1,4 @@
+-r requirements.txt
+pytest>=8.2
+pypdfium2>=4.30
+fonttools>=4.50

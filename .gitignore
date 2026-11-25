@@ -1,0 +1,19 @@
+# secrets
+.env
+.env.local
+.env.*.local
+# python
+__pycache__/
+*.pyc
+backend/.venv/
+.pytest_cache/
+# node
+frontend/node_modules/
+frontend/dist/
+frontend/test-results/
+frontend/playwright-report/
+frontend/e2e-out/
+# runtime
+data/
+*.log
+.cablen.pids
