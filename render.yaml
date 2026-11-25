@@ -15,3 +15,5 @@ services:
         value: "true"
       - key: AI_ENABLED
         value: "false"
+      - key: VITE_SITE_URL
+        value: https://cable-n.onrender.com

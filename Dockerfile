@@ -4,7 +4,7 @@ WORKDIR /src/frontend
 COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY frontend/ ./
-ARG VITE_SITE_URL=http://localhost:8000
+ARG VITE_SITE_URL=https://cable-n.onrender.com
 ARG VITE_ADS_ENABLED=false
 ARG VITE_ADSENSE_CLIENT=
 ARG VITE_ADSENSE_SLOT_RAIL=
