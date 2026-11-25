@@ -143,16 +143,19 @@ export default function AdvancedPage() {
       <Panel title="2. Cable types" icon={Icon.cable} count={i.cables.length} className="mt-16" actions={(
         <div className="panel-actions">
           {i.cables.length < 8 && <button className="btn-sm" onClick={() => addCable()}>{Icon.plus} Blank type</button>}
-          {presets && i.cables.length < 8 && (
-            <select className="btn-sm" value="" onChange={(e) => e.target.value && addCable(presets.presets[e.target.value]?.cable || libCables.find((x) => x.id === e.target.value)?.data.mode4_cable)}>
-              <option value="">Add from preset / library…</option>
+          {presets && (
+            <select className="btn-sm" value="" title="Replaces the cable type you are editing. Presets are illustrative, not manufacturer data."
+              onChange={(e) => {
+                const p = presets.presets[e.target.value]?.cable || libCables.find((x) => x.id === e.target.value)?.data.mode4_cable
+                if (p) set((x) => ({ cables: x.cables.map((y, k) => (k === ci ? cableFromPayload(p) : y)) }))
+              }}>
+              <option value="">Load preset into type {ci + 1} (illustrative)…</option>
               {Object.entries(presets.presets).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
               {libCables.map((x) => <option key={x.id} value={x.id}>My library: {x.code}</option>)}
             </select>
           )}
         </div>
       )}>
-        <p className="small muted" style={{ marginTop: 0 }}>Presets are illustrative starting points, not manufacturer data — enter your datasheet values.</p>
         <Tabs small value={String(ci)} onChange={setCableTab} tabs={i.cables.map((cb, k) => ({ id: String(k), label: `${k + 1}: ${cb.desig}` }))} />
         <CableEditor cable={i.cables[ci]} standard={i.standard} onChange={(cb) => set((x) => ({ cables: x.cables.map((y, k) => (k === ci ? cb : y)) }))} />
         {i.cables.length > 1 && <button className="btn-sm btn-sm-danger mt-16" onClick={() => { set((x) => ({ cables: x.cables.filter((_, k) => k !== ci) })); setCableTab('0') }}>Remove type {ci + 1}</button>}
